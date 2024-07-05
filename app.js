@@ -40,25 +40,32 @@ const getData = async () => {
     await driver.quit();
   }
 };
-getData();
 //server
-const app = e();
+const Server = () => {
+  const app = e();
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+  });
 
-app.get("/", (req, res) => {
-  try {
-    res.status(200).json(gpus);
-  } catch (error) {
-    res.status(400).json({ msg: error });
-  }
-});
+  app.get("/", (req, res) => {
+    try {
+      res.status(200).json(gpus);
+    } catch (error) {
+      res.status(400).json({ msg: error });
+    }
+  });
 
-app.listen(6969);
+  app.listen(6969);
+};
+
+const start = async () => {
+  await getData();
+  Server();
+};
+start();
