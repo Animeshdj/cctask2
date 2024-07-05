@@ -1,6 +1,5 @@
 import e from "express";
 import { Browser, Builder, By, until } from "selenium-webdriver";
-import cors from "cors";
 //scraper
 let gpus = {};
 const getData = async () => {
@@ -44,8 +43,6 @@ const getData = async () => {
 getData();
 //server
 const app = e();
-
-app.use(cors());
 
 app.get("/", (req, res) => {
   res.status(200).json(gpus);
