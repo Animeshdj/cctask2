@@ -44,9 +44,21 @@ getData();
 //server
 const app = e();
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.get("/", (req, res) => {
-  res.status(200).json(gpus);
-  // console.log("hit");
+  try {
+    res.status(200).json(gpus);
+  } catch (error) {
+    res.status(400).json({ msg: error });
+  }
 });
 
 app.listen(6969);
